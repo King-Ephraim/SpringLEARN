@@ -1,0 +1,18 @@
+## YAML Template.
+--- 
+# Use postgres/example user/password credentials
+
+services:
+  db:
+    image: postgres:15.14
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: artemis_2005
+    ports:
+      - 5433:5432
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8081:8080

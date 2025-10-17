@@ -4,14 +4,13 @@
  */
 package artemis.sa.controllers;
 
-import artemis.sa.dto.ErrorEntity;
+import artemis.sa.dto.ClientDTO;
 import artemis.sa.entities.Client;
 import artemis.sa.services.ClientService;
-import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
+import java.util.stream.Stream;
 import org.springframework.http.HttpStatus;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -44,7 +43,7 @@ public class ClientController {
     }
     
     @GetMapping(produces = APPLICATION_JSON_VALUE)
-    public List<Client> list(){
+    public Stream<ClientDTO> list(){
         return this.ClientService.list();
     }
     
@@ -59,9 +58,5 @@ public class ClientController {
         this.ClientService.modifier(id,client);
     }
     
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler({EntityNotFoundException.class})
-    public ErrorEntity errorHandler(EntityNotFoundException entityNotFoundException){
-        return new ErrorEntity(null, entityNotFoundException.getMessage());
-    }
+   
 }

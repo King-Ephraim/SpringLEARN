@@ -8,9 +8,10 @@ package artemis.sa.dto;
  *
  * @author code
  */
-public record ErrorEntity(
-        String code ,
-        String message) 
-{
+public record ClientDTO(
+        int id ,
+        String email,
+        String telephone
+        ) {
 
 }

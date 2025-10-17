@@ -4,11 +4,14 @@
  */
 package artemis.sa.services;
 
+import artemis.sa.dto.ClientDTO;
 import artemis.sa.entities.Client;
+import artemis.sa.mappers.ClientMapper;
 import artemis.sa.repositories.ClientRepository;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 import org.springframework.stereotype.Service;
 
 /**
@@ -19,10 +22,13 @@ import org.springframework.stereotype.Service;
 public class ClientService {
 
     private ClientRepository clientRepository;
+    private ClientMapper clientMapper;
 
-    public ClientService(ClientRepository clientRepository) {
+    public ClientService(ClientRepository clientRepository, ClientMapper clientMapper) {
         this.clientRepository = clientRepository;
+        this.clientMapper = clientMapper;
     }
+   
 
     public void create(Client client) {
         Client clientBd = this.clientRepository.findByEmail(client.getEmail());
@@ -32,8 +38,9 @@ public class ClientService {
 
     }
 
-    public List<Client> list() {
-        return this.clientRepository.findAll();
+    public Stream<ClientDTO> list() {
+        return this.clientRepository.findAll()
+                .stream().map(clientMapper);
     }
 
     public Client lire(int id) {

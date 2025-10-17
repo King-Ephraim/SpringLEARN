@@ -10,6 +10,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import java.util.Date;
+import org.hibernate.annotations.Collate;
 
 /**
  *
@@ -25,16 +27,28 @@ public class Client {
     
     @Column(unique = true)
     private String email ;
-    private String telephone ;
+    private String telephone ;  
+    
+    private Date creation ;
+    @Column(name = "mis_a_jour")
+    private Date misAJour ;
 
     public Client() {
     }
 
-    public Client(int id, String email, String telephone) {
+    public Client(int id, String email, String telephone, Date creation, Date misAJour) {
         this.id = id;
         this.email = email;
         this.telephone = telephone;
+        this.creation = creation;
+        this.misAJour = misAJour;
     }
+
+    
+    
+    
+
+    
 
 
     public int getId() {
@@ -60,7 +74,24 @@ public class Client {
     public void setTelephone(String telephone) {
         this.telephone = telephone;
     }
-    
+
+    public Date getCreation() {
+        return creation;
+    }
+
+    public void setCreation(Date creation) {
+        this.creation = creation;
+    }
+
+    public Date getMisAJour() {
+        return misAJour;
+    }
+
+    public void setMisAJour(Date misAJour) {
+        this.misAJour = misAJour;
+    }
+
+   
     
     
 }
